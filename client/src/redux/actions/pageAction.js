@@ -1,7 +1,7 @@
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 
-export const changePageAction = name =>
+export const changePageAction = type =>
     ({
         type: CHANGE_PAGE,
-        payload: name
+        payload: type
     });

@@ -5,5 +5,5 @@ import {pageReducer} from "./pageReducer";
 export const rootReducer = combineReducers(
     {
         userName: userNameReducer,
-        page: pageReducer
+        pageType: pageReducer,
     })
