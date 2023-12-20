@@ -1,6 +1,5 @@
 import {useEffect} from 'react';
 import './App.css';
-import {useSelector} from "react-redux";
 import Main from "./components/Main";
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
 
   return (
     <div className="App">
-      TASK IMPLEMENTATION HERE
       <Main/>
     </div>
   );

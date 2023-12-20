@@ -11,11 +11,14 @@ const Authorization = () => {
     return (
         <div>
             <input type={"text"} value={login}
-                   onChange={e=>setLogin(e.target.value)}/>
-            <button onClick={()=> {
-                dispatch(changeUserNameAction(login));
-                dispatch(changePageAction('main'))
-            }}>LogIn</button>
+                   onChange={e => setLogin(e.target.value)}/>
+            <button onClick={() => {
+                if (login) {
+                    dispatch(changeUserNameAction(login));
+                    dispatch(changePageAction('main'))
+                }
+            }}>LogIn
+            </button>
         </div>
     );
 };
