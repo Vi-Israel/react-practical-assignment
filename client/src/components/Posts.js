@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getPostsByPage} from "../redux/actions/postsAction";
+import {getPostsByKeyword, getPostsByPage} from "../redux/actions/postsAction";
 import Post from "./Post";
 
 const Posts = () => {
@@ -10,7 +10,7 @@ const Posts = () => {
 
     useEffect(() =>
     {
-        dispatch(getPostsByPage(pageType.pageNumber))
+        pageType.keyword?dispatch(getPostsByKeyword( pageType.keyword)) :dispatch(getPostsByPage(pageType.pageNumber))
 
     }, [pageType.keyword,pageType.pageNumber])
     return (
@@ -18,6 +18,7 @@ const Posts = () => {
 
             {posts.posts.map((item,index)=>
             <Post key={index} >{item}</Post>)}
+
         </div>
     );
 };

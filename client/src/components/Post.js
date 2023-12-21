@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Post = () => {
+const Post = (children) => {
+
     return (
         <div>
-            asd
+            {children.children.id} {children.children.title}
         </div>
     );
 };

@@ -21,3 +21,15 @@ export const getPostsByPage= number=>{
         .then(res=>console.log('dataObtained'))
         .catch(()=>console.log("Error in posts"))
 }}
+export const getPostsByKeyword= keyWord=>{
+    return dispatch=>{
+    fetch(base_url+`post/search/${keyWord}`)
+        .then(response=>response.json())
+        .then(data=> {
+            console.log(data)
+            dispatch(changePosts(data.result))
+            dispatch(changePageNumberTotalAction(data.totalPages))
+        })
+        .then(res=>console.log('dataObtained'))
+        .catch(()=>console.log("Error in posts"))
+}}
