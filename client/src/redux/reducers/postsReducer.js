@@ -6,7 +6,7 @@ const state={
 export const postsReducer=(posts=state,action)=>{
     switch (action.type){
         case CHANGE_POSTS:
-            return  {...posts, name: action.payload || posts.name};
+            return  {...posts, posts: action.payload || posts.posts};
         default:
             return posts;
     }
