@@ -15,13 +15,14 @@ const Header = () => {
                 dispatch(changePageAction('auth'))
             }}>LogOut
             </button>
-            <input type={"text"} value={keyword}
-                   onChange={e => setKeyword(e.target.value)}
-                   onKeyDown={(e) => {
-                       if (e.key === 'Enter')
-                           dispatch(changeKeywordAction(keyword))
-
-                   }}/>
+            <div>
+                <input type={"text"} value={keyword}
+                        onChange={e => setKeyword(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter')
+                                dispatch(changeKeywordAction(keyword))
+                        }}/>
+            </div>
 
         </div>
     );
