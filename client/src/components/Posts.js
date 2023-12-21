@@ -14,11 +14,13 @@ const Posts = () => {
 
     }, [pageType.keyword,pageType.pageNumber])
     return (
-        <div>
+        <div className="container ">
+        <div className="row">
 
             {posts.posts.map((item,index)=>
             <Post key={index} >{item}</Post>)}
 
+        </div>
         </div>
     );
 };
