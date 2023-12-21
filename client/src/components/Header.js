@@ -1,19 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {changeUserNameAction} from "../redux/actions/userNameAction";
-import {changePageAction} from "../redux/actions/pageAction";
+import {changeKeywordAction, changePageAction} from "../redux/actions/pageAction";
 
 const Header = () => {
-    const userName=useSelector(state => state.userName)
+    const userName = useSelector(state => state.userName)
     const dispatch = useDispatch();
-
+    const [keyword, setKeyword] = useState('')
     return (
         <div>
             <h2>{userName.name}</h2>
-            <button onClick={()=>{
+            <button onClick={() => {
                 dispatch(changeUserNameAction(''));
                 dispatch(changePageAction('auth'))
-            }}>LogOut</button>
+            }}>LogOut
+            </button>
+            <input type={"text"} value={keyword}
+                   onChange={e => setKeyword(e.target.value)}
+                   onKeyDown={(e) => {
+                       if (e.key === 'Enter')
+                           dispatch(changeKeywordAction(keyword))
+
+                   }}/>
+
         </div>
     );
 };

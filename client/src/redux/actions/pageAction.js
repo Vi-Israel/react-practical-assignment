@@ -9,11 +9,11 @@ export const changePageAction = type =>
     });
 export const changeKeywordAction = word =>
     ({
-        type: CHANGE_PAGE,
+        type: CHANGE_KEYWORD,
         payload: word
     });
 export const changePageNumberAction = number =>
     ({
-        type: CHANGE_PAGE,
+        type: CHANGE_PAGE_NUMBER,
         payload: number
     });
