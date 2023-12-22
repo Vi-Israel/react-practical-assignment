@@ -9,7 +9,6 @@ import Form from 'react-bootstrap/Form';
 const Post = ({postData, isEdit}) => {
     const [post, setPost] = useState(postData)
     const [newTitle, setNewTitle] = useState("")
-    const [postIsEdit, setPostIsEdit] = useState(isEdit)
     const userName = useSelector(state => state.userName)
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts);
@@ -96,7 +95,6 @@ const Post = ({postData, isEdit}) => {
             <div>
                 <h3>{post.username}</h3>
                 <p>{post.title}</p>
-                <p>{post.id}</p>
                 <p>rating: {post.likes.length - post.dislikes.length}</p>
                 <p>Post date and time: {new Date(post.date * 1).toLocaleString()}</p>
                 {post.imageSrc ? <img src={post.imageSrc} alt="post image"/> : null}
@@ -104,7 +102,8 @@ const Post = ({postData, isEdit}) => {
                 </Button>
                 <Button disabled={!(userName.name === post.username)} onClick={deletePost}>Delete post
                 </Button>
-                <Button onClick={() => console.log("click")}>Comment post</Button>
+                <Button onClick={() => console.log("click")}>Add comment</Button>
+                <Button onClick={() => console.log("click")}>Comments</Button>
                 <Button variant={post.likes.includes(userName.name)?'success':"secondary"} onClick={handleLike}>Like</Button>
                 <Button  variant={post.dislikes.includes(userName.name)?'danger':"secondary"} onClick={handleDislike}>Dislike</Button>
 

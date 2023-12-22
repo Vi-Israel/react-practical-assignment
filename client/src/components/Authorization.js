@@ -10,7 +10,7 @@ const Authorization = () => {
     const dispatch = useDispatch();
 
     return (
-        <div>
+        <div className= "d-flex justify-content-center">
             <input type={"text"} value={login}
                    onChange={e => setLogin(e.target.value)}/>
             <Button onClick={() => {

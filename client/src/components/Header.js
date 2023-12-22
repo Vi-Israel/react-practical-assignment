@@ -10,19 +10,21 @@ const Header = () => {
     const [keyword, setKeyword] = useState('')
     return (
         <div>
-            <h2>{userName.name}</h2>
-            <Button onClick={() => {
-                dispatch(changeUserNameAction(''));
-                dispatch(changePageAction('auth'))
-            }}>LogOut
-            </Button>
-            <div>
-                <input type={"text"} value={keyword}
-                        onChange={e => setKeyword(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter')
-                                dispatch(changeKeywordAction(keyword))
-                        }}/>
+            <div className="d-flex justify-content-center">
+                <h2>{userName.name}</h2>
+                <Button onClick={() => {
+                    dispatch(changeUserNameAction(''));
+                    dispatch(changePageAction('auth'))
+                }}>LogOut
+                </Button>
+            </div>
+            <div className="d-flex justify-content-center">
+                <input type={"text"} value={keyword} placeholder={"Search"}
+                       onChange={e => setKeyword(e.target.value)}
+                       onKeyDown={(e) => {
+                           if (e.key === 'Enter')
+                               dispatch(changeKeywordAction(keyword))
+                       }}/>
             </div>
 
         </div>
