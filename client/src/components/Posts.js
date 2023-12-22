@@ -18,7 +18,7 @@ const Posts = () => {
         <div className="row">
 
             {posts.posts.map((item,index)=>
-                <div key={index} className='col-12 col-md-6 col-lg-4 border border-black' >
+                <div key={index} className='col-12 col-md-6 col-lg-4 border border-black rounded' >
                     <Post isEdit={false} postData={item}/>
                 </div>)}
 
