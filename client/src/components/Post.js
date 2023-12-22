@@ -1,34 +1,51 @@
-import React, {useState} from 'react';
-import {useSelector} from "react-redux";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {base_url} from "../utils/constants";
+import {reRender} from "../redux/actions/pageAction";
 
-const Post = ({postData,isEdit}) => {
-    const [post,setPost]= useState(postData)
-    const [postIsEdit,setPostIsEdit]= useState(isEdit)
+const Post = ({postData, isEdit}) => {
+    const [post, setPost] = useState(postData)
+    const [postIsEdit, setPostIsEdit] = useState(isEdit)
     const userName = useSelector(state => state.userName)
+    const dispatch = useDispatch();
+    const posts=useSelector(state => state.posts);
 
 
-    const renderNorm = () =>
-    {
+    useEffect(() => {
+        setPost(postData)
+    }, [posts.posts]);
+    const deletePost = () => {
+        fetch(base_url+`post/${post.id}`,{method:'DELETE'})
+            .then(res=> {
+
+                dispatch(reRender(1));
+            })
+
+    }
+
+    const renderNorm = () => {
         return (
-            <div >
-               <h3>{post.username}</h3>
+            <div>
+                <h3>{post.username}</h3>
                 <p>{post.title}</p>
-                <p>rating: {post.likes.length-post.dislikes.length}</p>
-                <p>Post date and time: {new Date(post.date*1).toLocaleString()}</p>
-                <img src={post.imageSrc} alt="post image"/>
-                <button disabled={!(userName.name===post.username)} onClick={()=>console.log("click")}>Edit post</button>
-                <button disabled={!(userName.name===post.username)} onClick={()=>console.log("click")}>Delete post</button>
-                <button  onClick={()=>console.log("click")}>Comment post</button>
-                <button  onClick={()=>console.log("click")}>Like</button>
-                <button  onClick={()=>console.log("click")}>Dislike</button>
+                <p>{post.id}</p>
+                <p>rating: {post.likes.length - post.dislikes.length}</p>
+                <p>Post date and time: {new Date(post.date * 1).toLocaleString()}</p>
+                {post.imageSrc ? <img src={post.imageSrc} alt="post image"/> : null}
+                <button disabled={!(userName.name === post.username)} onClick={() => setPostIsEdit(true)}>Edit post
+                </button>
+                <button disabled={!(userName.name === post.username)} onClick={deletePost}>Delete post
+                </button>
+                <button onClick={() => console.log("click")}>Comment post</button>
+                <button onClick={() => console.log("click")}>Like</button>
+                <button onClick={() => console.log("click")}>Dislike</button>
 
 
             </div>
         );
     }
 
-    const renderEdit = () =>
-    {
+    const renderEdit = () => {
         return (
             <div>
                 b

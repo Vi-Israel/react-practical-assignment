@@ -12,7 +12,7 @@ const Posts = () => {
     {
         pageType.keyword?dispatch(getPostsByKeyword( pageType.keyword)) :dispatch(getPostsByPage(pageType.pageNumber))
 
-    }, [pageType.keyword,pageType.pageNumber])
+    }, [pageType.keyword,pageType.pageNumber,pageType.reRender])
     return (
         <div className="container ">
         <div className="row">
