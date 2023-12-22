@@ -16,7 +16,7 @@ const EditPostModal = ({post, setPost, addOrEdit}) => {
     const handleClose = () => {
         if (addOrEdit === 'Add') {
             fetch(base_url + `post/${id}`, {method: 'DELETE'})
-                .then(res => {
+                .then(() => {
 
                     dispatch(reRender(1));
                 })

@@ -1,6 +1,5 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import ReactPaginate from "react-paginate";
 import {changePageNumberAction} from "../redux/actions/pageAction";
 import {Pagination} from "react-bootstrap";
 

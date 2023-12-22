@@ -11,7 +11,6 @@ const Post = ({postData}) => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts);
 
-    const [show, setShow] = useState(false);
 
     const handleDislike = () => {
         if(post.dislikes.includes(userName.name)){
@@ -69,7 +68,7 @@ const Post = ({postData}) => {
     }, [posts.posts]);
     const deletePost = () => {
         fetch(base_url + `post/${post.id}`, {method: 'DELETE'})
-            .then(res => {
+            .then(() => {
 
                 dispatch(reRender(1));
             })
