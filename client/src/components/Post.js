@@ -17,6 +17,52 @@ const Post = ({postData, isEdit}) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
+    const handleDislike = () => {
+        if(post.dislikes.includes(userName.name)){
+             post.dislikes.splice(post.dislikes.indexOf(userName.name),1)
+            fetch(base_url + `post/${post.id}`,
+                {
+                    method:'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({dislikes: post.dislikes})}
+            )
+                .then(response => response.json())
+                .then(res => setPost({...post,dislikes: res.result.dislikes}) )
+        }else {
+            post.dislikes.push(userName.name)
+            fetch(base_url + `post/${post.id}`,
+                {
+                    method:'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({dislikes: post.dislikes})}
+            )
+                .then(response => response.json())
+                .then(res => setPost({...post,dislikes: res.result.dislikes}) )
+        }
+    };
+    const handleLike = () => {
+        if(post.likes.includes(userName.name)){
+            console.log( post.likes.splice(post.likes.indexOf(userName.name),1))
+            fetch(base_url + `post/${post.id}`,
+                {
+                    method:'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({likes: post.likes})}
+            )
+                .then(response => response.json())
+                .then(res => setPost({...post,likes: res.result.likes}) )
+        }else {
+            console.log(post.likes.push(userName.name))
+            fetch(base_url + `post/${post.id}`,
+                {
+                    method:'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({likes: post.likes})}
+            )
+                .then(response => response.json())
+                .then(res => setPost({...post,likes: res.result.likes}) )
+        }
+    };
     const handleEdit = () => {
         fetch(base_url + `post/${post.id}`,
             {
@@ -59,8 +105,8 @@ const Post = ({postData, isEdit}) => {
                 <Button disabled={!(userName.name === post.username)} onClick={deletePost}>Delete post
                 </Button>
                 <Button onClick={() => console.log("click")}>Comment post</Button>
-                <Button onClick={() => console.log("click")}>Like</Button>
-                <Button onClick={() => console.log("click")}>Dislike</Button>
+                <Button variant={post.likes.includes(userName.name)?'success':"secondary"} onClick={handleLike}>Like</Button>
+                <Button  variant={post.dislikes.includes(userName.name)?'danger':"secondary"} onClick={handleDislike}>Dislike</Button>
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
