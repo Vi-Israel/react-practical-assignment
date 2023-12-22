@@ -11,7 +11,6 @@ const Paginator = () => {
         <div>
             <ReactPaginate pageCount={pageType.pageNumberTotal} onPageChange={(e) => {
                 dispatch(changePageNumberAction(e.selected+1))
-                console.log(e.selected+1)
             }}/>
         </div>
     );

@@ -54,13 +54,13 @@ const Post = ({postData, isEdit}) => {
                 <p>rating: {post.likes.length - post.dislikes.length}</p>
                 <p>Post date and time: {new Date(post.date * 1).toLocaleString()}</p>
                 {post.imageSrc ? <img src={post.imageSrc} alt="post image"/> : null}
-                <button disabled={!(userName.name === post.username)} onClick={handleShow}>Edit post
-                </button>
-                <button disabled={!(userName.name === post.username)} onClick={deletePost}>Delete post
-                </button>
-                <button onClick={() => console.log("click")}>Comment post</button>
-                <button onClick={() => console.log("click")}>Like</button>
-                <button onClick={() => console.log("click")}>Dislike</button>
+                <Button disabled={!(userName.name === post.username)} onClick={handleShow}>Edit post
+                </Button>
+                <Button disabled={!(userName.name === post.username)} onClick={deletePost}>Delete post
+                </Button>
+                <Button onClick={() => console.log("click")}>Comment post</Button>
+                <Button onClick={() => console.log("click")}>Like</Button>
+                <Button onClick={() => console.log("click")}>Dislike</Button>
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
