@@ -5,8 +5,9 @@ import {reRender} from "../redux/actions/pageAction";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import EditPostModal from "./EditPostModal";
 
-const Post = ({postData, isEdit}) => {
+const Post = ({postData}) => {
     const [post, setPost] = useState(postData)
     const [newTitle, setNewTitle] = useState("")
     const userName = useSelector(state => state.userName)
@@ -15,7 +16,6 @@ const Post = ({postData, isEdit}) => {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
     const handleDislike = () => {
         if(post.dislikes.includes(userName.name)){
              post.dislikes.splice(post.dislikes.indexOf(userName.name),1)
@@ -62,20 +62,9 @@ const Post = ({postData, isEdit}) => {
                 .then(res => setPost({...post,likes: res.result.likes}) )
         }
     };
-    const handleEdit = () => {
-        fetch(base_url + `post/${post.id}`,
-            {
-                method:'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({title: newTitle})}
-        )
-            .then(response => response.json())
-            .then(res => setPost({...post, title: res.result.title}) )
 
-        setShow(false)
-    }
 
-    const handleShow = () => setShow(true);
+
 
 
     useEffect(() => {
@@ -98,8 +87,7 @@ const Post = ({postData, isEdit}) => {
                 <p>rating: {post.likes.length - post.dislikes.length}</p>
                 <p>Post date and time: {new Date(post.date * 1).toLocaleString()}</p>
                 {post.imageSrc ? <img src={post.imageSrc} alt="post image"/> : null}
-                <Button disabled={!(userName.name === post.username)} onClick={handleShow}>Edit post
-                </Button>
+
                 <Button disabled={!(userName.name === post.username)} onClick={deletePost}>Delete post
                 </Button>
                 <Button onClick={() => console.log("click")}>Add comment</Button>
@@ -107,32 +95,7 @@ const Post = ({postData, isEdit}) => {
                 <Button variant={post.likes.includes(userName.name)?'success':"secondary"} onClick={handleLike}>Like</Button>
                 <Button  variant={post.dislikes.includes(userName.name)?'danger':"secondary"} onClick={handleDislike}>Dislike</Button>
 
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Edit post</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>title</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    defaultValue={post.title}
-                                    onChange={e => setNewTitle(e.target.value)}
-                                    autoFocus
-                                />
-                            </Form.Group>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="primary" onClick={handleEdit}>
-                            Edit
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                <EditPostModal post={post} setPost={setPost} addOrEdit={"Edit"}/>
 
             </div>
         );
