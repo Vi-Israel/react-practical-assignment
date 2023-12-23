@@ -4,12 +4,15 @@ import {base_url} from "../utils/constants";
 import {reRender} from "../redux/actions/pageAction";
 import Button from 'react-bootstrap/Button';
 import EditPostModal from "./EditPostModal";
+import Comments from "./Comments";
+import {Collapse} from "react-bootstrap";
 
 const Post = ({postData}) => {
     const [post, setPost] = useState(postData)
     const userName = useSelector(state => state.userName)
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts);
+    const [open, setOpen] = useState(false);
 
 
     const handleDislike = () => {
@@ -37,7 +40,7 @@ const Post = ({postData}) => {
     };
     const handleLike = () => {
         if(post.likes.includes(userName.name)){
-            console.log( post.likes.splice(post.likes.indexOf(userName.name),1))
+             post.likes.splice(post.likes.indexOf(userName.name),1)
             fetch(base_url + `post/${post.id}`,
                 {
                     method:'PUT',
@@ -47,7 +50,7 @@ const Post = ({postData}) => {
                 .then(response => response.json())
                 .then(res => setPost({...post,likes: res.result.likes}) )
         }else {
-            console.log(post.likes.push(userName.name))
+            post.likes.push(userName.name)
             fetch(base_url + `post/${post.id}`,
                 {
                     method:'PUT',
@@ -88,11 +91,21 @@ const Post = ({postData}) => {
 
                 <Button disabled={!(userName.name === post.username)} onClick={deletePost}>Delete post
                 </Button>
-                <Button onClick={() => console.log("click")}>Add comment</Button>
-                <Button onClick={() => console.log("click")}>Comments</Button>
                 <Button variant={post.likes.includes(userName.name)?'success':"secondary"} onClick={handleLike}>Like</Button>
                 <Button  variant={post.dislikes.includes(userName.name)?'danger':"secondary"} onClick={handleDislike}>Dislike</Button>
 
+                <Button
+                    onClick={() => setOpen(!open)}
+                    aria-controls="coments"
+                    aria-expanded={open}
+                >
+                    Comments
+                </Button>
+                <Collapse in={open}>
+                    <div id="coments">
+                        <Comments post={post} setPost={setPost}></Comments>
+                    </div>
+                </Collapse>
 
             </div>
         );
