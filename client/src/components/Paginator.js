@@ -8,8 +8,8 @@ const Paginator = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="d-flex justify-content-center">
-            <Pagination className="px-4">
+        <div className="d-flex justify-content-center" >
+            <Pagination className="px-4" hidden={pageType.keyword}>
                 {Array(pageType.pageNumberTotal).fill(0).map((_, index) => {
                     return (
                         <Pagination.Item
