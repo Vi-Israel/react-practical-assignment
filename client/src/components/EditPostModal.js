@@ -10,6 +10,7 @@ const EditPostModal = ({post, setPost, addOrEdit}) => {
     const userName = useSelector(state => state.userName);
     const [show, setShow] = useState(false);
     const [newTitle, setNewTitle] = useState(post ? post.title : "new post");
+    const [file, setFile] = useState(null);
     const [id, setId] = useState(post ? post.id : 0);
     const dispatch = useDispatch();
 
@@ -33,12 +34,33 @@ const EditPostModal = ({post, setPost, addOrEdit}) => {
         )
             .then(response => response.json())
             .then(res => setPost ? setPost({...post, title: res.result.title}) : null)
+            .then(() => {
+                if(file){
+                const formData = new FormData();
+                formData.append("picture", file)
+                fetch(base_url + `post/${id}/picture`, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json())
+                    .then(res => setPost ? setPost({...post, imageSrc: res.result.imageSrc}) : null)
+                    .then(()=>{
+                        if (addOrEdit === 'Add') {
+                            dispatch(reRender(1))
+                        }
+                    })
+                    .catch()}
+            }).then(() => {
 
-        setShow(false)
-        if (addOrEdit === 'Add') {
-            setNewTitle("new post")
-            dispatch(reRender(1))
-        }
+            setShow(false)
+            setFile(null)
+            if (addOrEdit === 'Add') {
+                setNewTitle("new post")
+                dispatch(reRender(1))
+
+            }
+        }).catch()
+
+
     }
 
     const handleShow = () => {
@@ -77,7 +99,7 @@ const EditPostModal = ({post, setPost, addOrEdit}) => {
                         </Form.Group>
                         <Form.Group controlId="formFile" className="mb-3">
                             <Form.Label>Upload picture</Form.Label>
-                            <Form.Control type="file"/>
+                            <Form.Control type="file" accept="image/*" onChange={e => setFile(e.target.files[0])}/>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

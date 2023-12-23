@@ -79,8 +79,9 @@ const Post = ({postData}) => {
         return (
             <div>
                 <h3>{post.username}</h3>
-                <p>{post.title}</p>
-                {post.imageSrc ? <img src={post.imageSrc} alt="post image"/> : null}
+                <h2>{post.title}</h2>
+                <div className="container row">
+                {post.imageSrc ? <img src={post.imageSrc} alt="post image"/> : null}</div>
                 <h5>rating: {post.likes.length - post.dislikes.length}</h5>
                 <p>Post date and time: {new Date(post.date * 1).toLocaleString()}</p>
                 <EditPostModal post={post} setPost={setPost} addOrEdit={"Edit"}/>
