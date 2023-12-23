@@ -91,8 +91,8 @@ const EditPostModal = ({post, setPost, addOrEdit}) => {
                             <Form.Label>Title</Form.Label>
                             <Form.Control
                                 as='textarea'
-                                rows={4}
-                                defaultValue={post ? post.title : "new post"}
+                                rows={2}
+                                defaultValue={newTitle}
                                 onChange={e => setNewTitle(e.target.value)}
                                 autoFocus
                             />

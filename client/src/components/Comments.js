@@ -6,13 +6,14 @@ const Comments = ({post, setPost}) => {
     return (
         <div>
             <div className="d-flex justify-content-center">
-                <EditCommentModal addOrEdit={'Add'}/>
+                <EditCommentModal post={post} addOrEdit={'Add'}/>
             </div>
 
             {post.comments.map((item,index)=>
                 <div key={index} className='container border border-black rounded'>
-                    <CommentItem comment={item} post={post} setPost={setPost}/>
+                    <CommentItem commentData={item} post={post} setPost={setPost}/>
                 </div> )}
+
         </div>
     );
 };

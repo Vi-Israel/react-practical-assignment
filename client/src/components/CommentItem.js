@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import EditPostModal from "./EditPostModal";
 import EditCommentModal from "./EditCommentModal";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {base_url} from "../utils/constants";
 import {reRender} from "../redux/actions/pageAction";
 
-const CommentItem = ({comment,post,setPost}) => {
+const CommentItem = ({commentData,post,setPost}) => {
 
     const userName = useSelector(state => state.userName)
     const dispatch = useDispatch();
+    const [comment,setComment]= useState(commentData);
     const [likes,setLikes]= useState(comment.likes);
     const [disLikes,setDisLikes]= useState(comment.dislikes);
 
@@ -73,7 +73,7 @@ const CommentItem = ({comment,post,setPost}) => {
             <p>{comment.text}</p>
             <h5>rating: {likes.length - disLikes.length}</h5>
             <p>Comment date and time: {new Date(comment.date * 1).toLocaleString()}</p>
-            <EditCommentModal comment={comment} setPost={setPost} addOrEdit={"Edit"}/>
+            <EditCommentModal comment={comment} setComment={setComment} post={post} setPost={setPost} addOrEdit={"Edit"}/>
 
             <Button disabled={!(userName.name === comment.username)} onClick={deleteComment}>Delete comment
             </Button>
